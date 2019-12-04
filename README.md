@@ -12,8 +12,8 @@ firewalldの設定は自動化されていない。awsでやるならセキュ�
 # yum -y install epel-release
 # yum -y install ansible
 ```
-展開場所は下記
+展開する場所は下記を参照。
 ```
 /etc/ansible
-ansible.cfg以外を上書きでコピーしたらいいと思います。
+※回答したらansible.cfg以外を上書きでコピーしたらいいと思います。
 ```
