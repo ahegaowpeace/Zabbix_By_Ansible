@@ -6,8 +6,8 @@ OSのタイムゾーン変更も忘れないで
 2. FireWall  
 firewalldの設定は自動化されていない。awsでやるならセキュリティグループの設定が必要になる。  
 
-	- 10050/tcp
-	- 10051/tcp
+- 10050/tcp
+- 10051/tcp
 
 3. Ansible  
 そもそもAnsibleをインスコしなくては構築出来ませんね。
@@ -28,7 +28,7 @@ rootユーザにならずにbecomeディレクティブの値をyesにするとs
 2. 鍵  
 ssh用の鍵を以下の場所に格納する。
 ```
-files/.ssh/private.pem
+.ssh/private.pem
 格納ディレクトリ:700
 鍵ファイル:600
 ```
@@ -37,7 +37,7 @@ files/.ssh/private.pem
 zabbixサーバのアドレス/zabbixエージェントのアドレス(ホスト名)をデフォルト設定から変更する必要がある。  
 環境に合わせて下記ファイルを編集する。
 ```
-files/zabbix-agent/zabbix_agentd.conf
+roles/zabbix-agent/files/zabbix_agentd.conf
 ```
 同じくインベントリのアドレスも
 
