@@ -42,5 +42,12 @@
 
 ## db-[99:101]-node.example.com
 
-## [zabbix]
+[zabbix-sever]
 localhost
+
+[zabbix-agents]
+172.31.35.210
+[zabbix-agents:vars]
+ansible_port=22
+ansible_user=centos
+ansible_ssh_private_key_file=files/.ssh/private.pem
