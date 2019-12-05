@@ -1,27 +1,19 @@
-- name: download  epel-release repo
+- name: download epel-release, remi, mysql repositorys
   yum:
-    name: epel-release
-    state: latest
+    name: {{ item.name }}
+    state: {{ item.state }}
+  with_items:
+    - { name: 'epel-release', state: 'latest' }
+    - { name: 'http://rpms.famillecollet.com/enterprise/remi-release-7.rpm', state: 'present' }
+    - { name: 'https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm', state: 'present' }
 
-- name: download  remi repo
-  yum:
-    name: http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-    state: present
-
-- name: download mysql repo
-  yum:
-    name: https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
-    state: present
-
-- name: copy remi.repo
+- name: copy remi.repo, remi-php72.repo
   copy:
-    src: remi.repo
-    dest: /etc/yum.repos.d/remi.repo
-
-- name: copy remi-php72.repo
-  copy:
-    src: remi-php72.repo
-    dest: /etc/yum.repos.d/remi-php72.repo
+    src: {{ item.src }}
+    dest: {{ item.dest }}
+  with_items:
+    - { src: 'remi.repo', dest: '/etc/yum.repos.d/remi.repo' }
+    - { src: 'remi-php72.repo', dest: '/etc/yum.repos.d/remi-php72.repo' }
 
 - name: import remi gpg-key
   rpm_key:
@@ -59,17 +51,17 @@
   register: root_password
 
 - name: update expired root user password
-  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY 's@@@tETp@3@N';"
+  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY {{ DB_PASS }};"
 
 - name: create mysql client user
   mysql_user:
     name: zabbix
-    password: s@@@tETp@3@N
+    password: {{ DB_PASS }}
     priv: "*.*:ALL,GRANT"
     host: localhost
     state: present
     login_user: root
-    login_password: s@@@tETp@3@N
+    login_password: {{ DB_PASS }}
 
 - name: download zabbix 4.0 repo
   yum:
@@ -89,9 +81,9 @@
 
 - name: create db for zabbix
   shell: |
-    mysql -u root -ps@@@tETp@3@N < files/sql/CreateDB.sql
+    mysql -u root -p{{ DB_PASS }} < files/sql/CreateDB.sql
     cd /usr/share/doc/zabbix-server-mysql-4*
-    zcat create.sql.gz | mysql -u zabbix -ps@@@tETp@3@N zabbix
+    zcat create.sql.gz | mysql -u zabbix -p{{ DB_PASS }} zabbix
 
 - name: copy config files of zabbix
   copy: src={{ item.src}} dest={{ item.dest }} mode={{ item.mode }}

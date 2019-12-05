@@ -20,6 +20,10 @@ firewalldの設定は自動化されていない。awsでやるならセキュ�
 /etc/ansible
 ※回答したらansible.cfg以外を上書きでコピーしたらいいと思います。
 ```
+
+4. 各変数  
+インベントリにてホストグループ毎に定義
+
 # Zabbix-agent
 
 1. 権限  
@@ -28,7 +32,7 @@ rootユーザにならずにbecomeディレクティブの値をyesにするとs
 2. 鍵  
 ssh用の鍵を以下の場所に格納する。
 ```
-.ssh/private.pem
+files/.ssh/private.pem
 格納ディレクトリ:700
 鍵ファイル:600
 ```
@@ -37,7 +41,7 @@ ssh用の鍵を以下の場所に格納する。
 zabbixサーバのアドレス/zabbixエージェントのアドレス(ホスト名)をデフォルト設定から変更する必要がある。  
 環境に合わせて下記ファイルを編集する。
 ```
-roles/zabbix-agent/files/zabbix_agentd.conf
+files/zabbix-agent/zabbix_agentd.conf
 ```
 同じくインベントリのアドレスも
 

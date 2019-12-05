@@ -51,3 +51,4 @@ localhost
 ansible_port=22
 ansible_user=centos
 ansible_ssh_private_key_file=.ssh/private.pem
+DB_PASS="s@@@tETp@3@N"
