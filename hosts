@@ -46,9 +46,9 @@
 localhost
 
 [zabbix-agents]
-172.31.35.210
+172.31.39.78
 [zabbix-agents:vars]
 ansible_port=22
 ansible_user=centos
 ansible_ssh_private_key_file=.ssh/private.pem
-DB_PASS="s@@@tETp@3@N"
+DB_PASS=s@@@tETp@3@N

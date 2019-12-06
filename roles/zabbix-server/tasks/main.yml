@@ -1,19 +1,19 @@
 - name: download epel-release, remi, mysql repositorys
   yum:
-    name: {{ item.name }}
-    state: {{ item.state }}
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
   with_items:
-    - { name: 'epel-release', state: 'latest' }
-    - { name: 'http://rpms.famillecollet.com/enterprise/remi-release-7.rpm', state: 'present' }
-    - { name: 'https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm', state: 'present' }
+      - { name: 'epel-release', state: 'latest' }
+      - { name: 'http://rpms.famillecollet.com/enterprise/remi-release-7.rpm', state: 'present' }
+      - { name: 'https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm', state: 'present' }
 
 - name: copy remi.repo, remi-php72.repo
   copy:
-    src: {{ item.src }}
-    dest: {{ item.dest }}
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
   with_items:
-    - { src: 'remi.repo', dest: '/etc/yum.repos.d/remi.repo' }
-    - { src: 'remi-php72.repo', dest: '/etc/yum.repos.d/remi-php72.repo' }
+      - { src: 'remi.repo', dest: '/etc/yum.repos.d/remi.repo' }
+      - { src: 'remi-php72.repo', dest: '/etc/yum.repos.d/remi-php72.repo' }
 
 - name: import remi gpg-key
   rpm_key:
@@ -51,17 +51,17 @@
   register: root_password
 
 - name: update expired root user password
-  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY {{ DB_PASS }};"
+  command: mysql --user root --password="{{ root_password.stdout }}" --connect-expired-password --execute='ALTER USER "root"@"localhost" IDENTIFIED BY "{{ DB_PASS }}";'
 
 - name: create mysql client user
   mysql_user:
     name: zabbix
-    password: {{ DB_PASS }}
+    password: "{{ DB_PASS }}"
     priv: "*.*:ALL,GRANT"
     host: localhost
     state: present
     login_user: root
-    login_password: {{ DB_PASS }}
+    login_password: "{{ DB_PASS }}"
 
 - name: download zabbix 4.0 repo
   yum:
@@ -98,6 +98,6 @@
     state: "{{ item.state }}"
     enabled: "{{ item.enabled }}"
   with_items:
-    - { name: 'zabbix-server', state: 'started', enabled: 'yes' }
-    - { name: 'httpd', state: 'started', enabled: 'yes' }
-    - { name: 'zabbix-agent', state: 'started', enabled: 'yes' }
+      - { name: 'zabbix-server', state: 'started', enabled: 'yes' }
+      - { name: 'httpd', state: 'started', enabled: 'yes' }
+      - { name: 'zabbix-agent', state: 'started', enabled: 'yes' }
