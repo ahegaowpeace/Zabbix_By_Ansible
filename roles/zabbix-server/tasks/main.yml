@@ -81,7 +81,7 @@
 
 - name: create db for zabbix
   shell: |
-    mysql -u root -p{{ DB_PASS }} < files/sql/CreateDB.sql
+    mysql -u root -p{{ DB_PASS }} < CreateDB.sql
     cd /usr/share/doc/zabbix-server-mysql-4*
     zcat create.sql.gz | mysql -u zabbix -p{{ DB_PASS }} zabbix
 
