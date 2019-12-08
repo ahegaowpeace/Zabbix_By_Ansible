@@ -81,12 +81,12 @@
 
 - name: create db for zabbix
   shell: |
-    mysql -u root -p{{ DB_PASS }} < CreateDB.sql
+    mysql -u root -p"{{ DB_PASS }}" < CreateDB.sql
     cd /usr/share/doc/zabbix-server-mysql-4*
-    zcat create.sql.gz | mysql -u zabbix -p{{ DB_PASS }} zabbix
+    zcat create.sql.gz | mysql -u zabbix -p"{{ DB_PASS }}" zabbix
 
 - name: copy config files of zabbix
-  copy: src={{ item.src}} dest={{ item.dest }} mode={{ item.mode }}
+  copy: src="{{ item.src}}" dest="{{ item.dest }}" mode="{{ item.mode }}"
   with_items:
       - { src: 'zabbix_server.conf', dest: '/etc/zabbix/zabbix_server.conf', mode: '0640' }
       - { src: 'zabbix.conf', dest: '/etc/httpd/conf.d/zabbix.conf', mode: '0644' }
