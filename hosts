@@ -49,7 +49,7 @@ localhost
 DB_PASS=s@@@tETp@3@N
 
 [zabbix-agents]
-172.31.39.78
+172.31.41.107
 
 [zabbix-agents:vars]
 ansible_port=22

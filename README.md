@@ -17,8 +17,8 @@ firewalldの設定は自動化されていない。awsでやるならセキュ�
 ```
 展開する場所は下記を参照。
 ```
-/etc/ansible
-※回答したらansible.cfg以外を上書きでコピーしたらいいと思います。
+sudo cp -r Zabbix_By_Ansible/* /etc/ansible
+※ansible.cfg以外を上書きでコピーしたらいいと思います。
 ```
 
 4. 各変数  
@@ -33,18 +33,26 @@ rootユーザにならずにbecomeディレクティブの値をyesにするとs
 2. 鍵  
 ssh用の鍵を以下の場所に格納する。
 ```
-files/.ssh/private.pem
+.ssh/private.pem
 格納ディレクトリ:700
 鍵ファイル:600
 ```
 
 3. zabbix_agentd.conf
 zabbixサーバ/エージェントのアドレス(ホスト名)をデフォルト設定から変更する必要がある。  
-環境に合わせて下記ファイルを編集する。
+環境に合わせて下記ファイルを編集する。同じくインベントリのアドレスも。
 ```
+./hosts
 roles/zabbix-agent/files/zabbix_agentd.conf
+
+Server=Zabbixサーバのアドレス
+ActiveServer=Zabbixサーバのアドレス
+Hostname=Zabbixエージェントのアドレス
 ```
-同じくインベントリのアドレスも
+実行するときはチェックオプションでテストするのも忘れず
+```
+# ansible-playbook -i hosts start.yml -C
+```
 
 # 要件定義
 インベントリでアドレスを設定するだけでzabbix監視環境を構築したい。  
