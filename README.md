@@ -39,10 +39,10 @@ files/.ssh/private.pem
 ```
 
 3. zabbix_agentd.conf
-zabbixサーバのアドレス/zabbixエージェントのアドレス(ホスト名)をデフォルト設定から変更する必要がある。  
+zabbixサーバ/エージェントのアドレス(ホスト名)をデフォルト設定から変更する必要がある。  
 環境に合わせて下記ファイルを編集する。
 ```
-files/zabbix-agent/zabbix_agentd.conf
+roles/zabbix-agent/files/zabbix_agentd.conf
 ```
 同じくインベントリのアドレスも
 
