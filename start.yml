@@ -1,6 +1,5 @@
 - hosts: zabbix-agents
   become: yes
-
   roles:
     -  zabbix-agent
 
