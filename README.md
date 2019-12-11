@@ -1,15 +1,23 @@
 # Zabbix-sever
 
-1. タイムゾーン  
+1. git cloen  
+jinja2ブランチを指定してクローンする.
+
+2. タイムゾーン  
 OSのタイムゾーン変更も忘れないで
 
-2. FireWall  
+3. FireWall  
 firewalldの設定は自動化されていない。awsでやるならセキュリティグループの設定が必要になる。  
 
 - 10050/tcp
 - 10051/tcp
 
-3. Ansible  
+加えてサーバ側はSELinuxをOFFにする。
+```
+# setenforce 0
+```
+
+4. Ansible  
 そもそもAnsibleをインスコしなくては構築出来ませんね。
 ```
 # yum -y install epel-release
@@ -21,7 +29,7 @@ sudo cp -r Zabbix_By_Ansible/* /etc/ansible
 ※ansible.cfg以外を上書きでコピーしたらいいと思います。
 ```
 
-4. 各変数  
+5. 各変数  
 インベントリにてホストグループ毎に定義  
 変数を展開する時はダブルクォーテーションでくくる
 
