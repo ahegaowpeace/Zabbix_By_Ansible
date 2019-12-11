@@ -2,6 +2,9 @@
 
 1. git cloen  
 jinja2ブランチを指定してクローンする.
+```
+$ git clone -b jinja2 https://github.com/ahegaowpeace/Zabbix_By_Ansible.git
+```
 
 2. タイムゾーン  
 OSのタイムゾーン変更も忘れないで
