@@ -1,3 +1,11 @@
+# 基本手順
+
+1. リポジトリをクローン  
+2. ansibleをinstall  
+3. インベントリファイルでIPとパスを変更  
+4. SELinux/セキュリティグループ設定  
+5. リスタート
+
 # Zabbix-sever
 
 1. git cloen  
@@ -5,6 +13,7 @@ jinja2ブランチを指定してクローンする.
 ```
 $ git clone -b jinja2 https://github.com/ahegaowpeace/Zabbix_By_Ansible.git
 ```
+※m現在はブランチ指定せずにmasterでもOK
 
 2. タイムゾーン  
 OSのタイムゾーン変更も忘れないで
