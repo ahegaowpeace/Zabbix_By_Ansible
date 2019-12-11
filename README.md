@@ -13,10 +13,11 @@ jinja2ブランチを指定してクローンする.
 ```
 $ git clone -b jinja2 https://github.com/ahegaowpeace/Zabbix_By_Ansible.git
 ```
-※m現在はブランチ指定せずにmasterでもOK
+※現在はブランチ指定せずにmasterでもOK   
 
 2. タイムゾーン  
 OSのタイムゾーン変更も忘れないで
+※OSのタイムゾーンを変更しなくても、コンフィグで指定していれば自動で変えてくれるらしい。
 
 3. FireWall  
 firewalldの設定は自動化されていない。awsでやるならセキュリティグループの設定が必要になる。  
@@ -58,7 +59,7 @@ ssh用の鍵を以下の場所に格納する。
 鍵ファイル:600
 ```
 
-3. zabbix_agentd.conf
+3. zabbix_agentd.conf  
 zabbixサーバ/エージェントのアドレス(ホスト名)をデフォルト設定から変更する必要がある。  
 環境に合わせて下記ファイルを編集する。同じくインベントリのアドレスも。
 ```
@@ -69,6 +70,7 @@ Server=Zabbixサーバのアドレス
 ActiveServer=Zabbixサーバのアドレス
 Hostname=Zabbixエージェントのアドレス
 ```
+※現在はJinja2によりインベントリファイルにIPとパスを記載するだけでよい。
 実行するときはチェックオプションでテストするのも忘れず
 ```
 # ansible-playbook -i hosts start.yml -C
