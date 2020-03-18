@@ -52,6 +52,7 @@
 
 - name: update expired root user password
   command: mysql --user root --password="{{ root_password.stdout }}" --connect-expired-password --execute='ALTER USER "root"@"localhost" IDENTIFIED BY "{{ DB_PASS }}";'
+  ignore_errors: yes
 
 - name: create mysql client user
   mysql_user:
